@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Minimalism Start Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section {
+            background: white;
+            padding: 40px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin: 30px 0 15px 0;
+            color: #34495e;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            color: #555;
+        }
+
+        p {
+            margin: 15px 0;
+            font-size: 1.1em;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px 10px 10px 0;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #5568d3;
+        }
+
+        .button.secondary {
+            background: #95a5a6;
+        }
+
+        .button.secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .choice-group {
+            margin: 20px 0;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px 0;
+            background: #95a5a6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .back-button:hover {
+            background: #7f8c8d;
+        }
+
+        .action-box {
+            background: #ecf0f1;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+        }
+
+        .resource-list {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .resource-list ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .resource-list li {
+            margin: 8px 0;
+        }
+
+        a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .intro {
+            font-size: 1.2em;
+            color: #555;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Landing Section -->
+        <div id="landing" class="section">
+            <h1>Digital Minimalism Start Guide</h1>
+            <p class="intro">You know the feeling. you picked up your phone to check one thing and suddenly it's an hour later and you're watching your 23rd video about something you don't even care about.</p>
+            <p class="intro">Or you sat down to work and now you have 47 tabs open and none of them are what you're supposed to be doing.</p>
+            <p>This isn't another productivity hack or life optimization thing. this is about getting your attention back. about having time for things that actually matter to you.</p>
+            <p>No judgement here. just practical steps based on what actually works.</p>
+            <button class="button" onclick="showSection('stage')">Let's start</button>
+        </div>
+
+        <!-- Stage Selection -->
+        <div id="stage" class="section hidden">
+            <h2>Where are you right now?</h2>
+            <p>Pick what sounds most like you:</p>
+            
+            <div class="choice-group">
+                <button class="button" onclick="selectStage('waking-up')">
+                    Just waking up to this
+                    <br><small style="font-size: 0.8em; opacity: 0.9;">you've noticed the problem but don't know what to do</small>
+                </button>
+                
+                <button class="button" onclick="selectStage('motivated')">
+                    Motivated but lost
+                    <br><small style="font-size: 0.8em; opacity: 0.9;">you know exactly what's wrong but every attempt fails</small>
+                </button>
+                
+                <button class="button" onclick="selectStage('fluctuating')">
+                    On and off
+                    <br><small style="font-size: 0.8em; opacity: 0.9;">it works for a while then you slip back</small>
+                </button>
+                
+                <button class="button" onclick="selectStage('advanced')">
+                    Already doing the work
+                    <br><small style="font-size: 0.8em; opacity: 0.9;">you've made changes, want to go deeper</small>
+                </button>
+            </div>
+            
+            <button class="back-button" onclick="showSection('landing')">Back</button>
+        </div>
+
+        <!-- Platform Selection -->
+        <div id="platform" class="section hidden">
+            <h2>What's your main battlefield?</h2>
+            <p>Where does the problem actually live?</p>
+            
+            <div class="choice-group">
+                <button class="button" onclick="selectPlatform('phone')">My phone is the problem</button>
+                <button class="button" onclick="selectPlatform('computer')">My computer is the problem</button>
+                <button class="button" onclick="selectPlatform('both')">Both are fucked</button>
+            </div>
+            
+            <button class="back-button" onclick="showSection('stage')">Back</button>
+        </div>
+
+        <!-- Phone OS Selection -->
+        <div id="phone-os" class="section hidden">
+            <h2>Which phone?</h2>
+            <div class="choice-group">
+                <button class="button" onclick="selectOS('iphone', 'phone')">iPhone</button>
+                <button class="button" onclick="selectOS('android', 'phone')">Android</button>
+            </div>
+            <button class="back-button" onclick="showSection('platform')">Back</button>
+        </div>
+
+        <!-- Computer OS Selection -->
+        <div id="computer-os" class="section hidden">
+            <h2>Which computer?</h2>
+            <div class="choice-group">
+                <button class="button" onclick="selectOS('windows', 'computer')">Windows</button>
+                <button class="button" onclick="selectOS('mac', 'computer')">Mac</button>
+                <button class="button" onclick="selectOS('linux', 'computer')">Linux</button>
+            </div>
+            <button class="back-button" onclick="showSection('platform')">Back</button>
+        </div>
+
+        <!-- Problem Selection -->
+        <div id="problem" class="section hidden">
+            <h2>What specifically happens?</h2>
+            <p>Pick your main issue (you can come back and do this for other problems later):</p>
+            
+            <div class="choice-group">
+                <button class="button" onclick="selectProblem('social-feeds')">Social media feeds<br><small>endless scrolling on instagram, twitter, reddit, tiktok</small></button>
+                <button class="button" onclick="selectProblem('video-holes')">Video black holes<br><small>youtube, tiktok - one video turns into hours</small></button>
+                <button class="button" onclick="selectProblem('messaging-stress')">Messaging stress<br><small>constant notifications, need to respond immediately</small></button>
+                <button class="button" onclick="selectProblem('news-addiction')">News addiction<br><small>checking news sites constantly for updates</small></button>
+                <button class="button" onclick="selectProblem('phone-checking')">General phone checking<br><small>picking it up without thinking</small></button>
+                <button class="button" onclick="selectProblem('work-distraction')">Work distractions<br><small>meant to focus but keep opening tabs</small></button>
+            </div>
+            
+            <button class="back-button" onclick="goBackFromProblem()">Back</button>
+        </div>
+
+        <!-- Action Plan (will be populated dynamically) -->
+        <div id="action-plan" class="section hidden">
+            <div id="action-content"></div>
+            <button class="button" onclick="showSection('relapse')">What if i fuck this up?</button>
+            <button class="button secondary" onclick="showSection('alternatives')">What should i do instead?</button>
+            <button class="back-button" onclick="showSection('problem')">Back</button>
+        </div>
+
+        <!-- Relapse Section -->
+        <div id="relapse" class="section hidden">
+            <h2>When you fuck up</h2>
+            
+            <p>Let's be real about this. you're going to fail at this. probably multiple times. that's not a you problem, that's a human problem.</p>
+
+            <p>The pattern goes like this: try something new, it works for a bit, life gets stressful or boring, you stop doing the thing, feel bad about stopping, avoid thinking about it, suddenly it's been three months and you're back where you started.</p>
+
+            <h3>What actually happens when you relapse</h3>
+            
+            <p>You'll probably notice it in stages. first you'll catch yourself scrolling and think "shit, i wasn't supposed to do this". then you'll rationalize it, just this once, just for today, just because [insert reason]. then you'll stop noticing. then one day you'll realize you haven't thought about any of this in weeks.</p>
+
+            <div class="action-box">
+                <h3>When you notice you've slipped</h3>
+                <p><strong>Don't try to fix everything at once.</strong> The urge is to go hardcore again, reinstall all the blockers, delete all the apps, swear you'll never look at your phone again. That doesn't work. You just burned out, you need a gentler restart.</p>
+                
+                <p><strong>Pick one thing.</strong> Just one. The smallest, easiest intervention that helped before. Maybe it's turning on grayscale again. Maybe it's just moving one app off your home screen. Start there.</p>
+                
+                <p><strong>Actually look at what happened.</strong> Not to beat yourself up, but to understand. What was going on when you stopped? Were you stressed? Bored? Lonely? Avoiding something? That's the real thing to address, not just the phone use.</p>
+            </div>
+
+            <h3>The spiral</h3>
+            
+            <p>Here's what doesn't help: feeling guilty. Guilt just makes you want to avoid thinking about it, which makes the problem worse.</p>
+
+            <p>What does help: curiosity. "Huh, interesting that i couldn't stick with that. i wonder why?" Not in a fake therapist voice, genuinely wondering.</p>
+
+            <div class="warning-box">
+                <h3>Red flags you're about to relapse</h3>
+                <ul>
+                    <li>You start making exceptions. "Just for this one thing" turns into "well i guess it doesn't matter"</li>
+                    <li>You reinstall an app "just to check one thing"</li>
+                    <li>You stop checking your screen time stats because you don't want to see</li>
+                    <li>You're not replacing the habit with anything else, just white-knuckling through</li>
+                    <li>Life got hard and your coping mechanism is scrolling</li>
+                </ul>
+            </div>
+
+            <h3>Recovery protocol</h3>
+            
+            <p>When you're ready to restart (and you will restart, because you're reading this):</p>
+
+            <div class="action-box">
+                <p><strong>Today:</strong> Look at your screen time. Don't judge, just look. Screenshot it if you want, for comparison later.</p>
+                
+                <p><strong>This week:</strong> Implement ONE thing from your action plan. Not everything. One thing. The thing that worked best before, or the thing that seems easiest now.</p>
+                
+                <p><strong>Next week:</strong> If that one thing stuck, add one more. If it didn't stick, try a different one thing.</p>
+                
+                <p><strong>Keep going:</strong> Build up slowly. You're not in a rush. Quick fixes don't last. Slow changes do.</p>
+            </div>
+
+            <h3>The long view</h3>
+            
+            <p>This isn't a one-time thing. It's more like brushing your teeth. You don't brush your teeth once and then you're done forever. You do it every day, and sometimes you forget, and then you do it again.</p>
+
+            <p>The goal isn't perfection. The goal is being better than you were, more often than not. Some weeks you'll nail it. Some weeks you won't. Over time, the good weeks outnumber the bad weeks. That's progress.</p>
+
+            <button class="button" onclick="showSection('alternatives')">Okay, but what should i actually be doing?</button>
+            <button class="button secondary" onclick="restartGuide()">Start over with new plan</button>
+            <button class="back-button" onclick="showSection('action-plan')">Back</button>
+        </div>
+
+        <!-- Alternatives Section -->
+        <div id="alternatives" class="section hidden">
+            <h2>What to do instead</h2>
+            
+            <p>Here's the thing nobody tells you: blocking apps and adding friction is half the battle. the other half is having something better to do.</p>
+
+            <p>Because the real problem isn't that scrolling is too easy. It's that scrolling fills a need. You're bored, or stressed, or lonely, or avoiding something, or just need a break. If you don't replace scrolling with something that fills those needs, you'll just white-knuckle it until you break.</p>
+
+            <h3>Why bother?</h3>
+            
+            <p>Before we get into the what, let's talk about the why. What are you actually getting back?</p>
+
+            <p><strong>Time, obviously.</strong> But not just time. Attention. The ability to focus on something for more than 90 seconds without reaching for your phone. The ability to be bored without immediately filling it with content.</p>
+
+            <p><strong>Your brain back.</strong> That feeling of your mind being quiet. Not having a constant background hum of anxiety about what you're missing, what you should check, what just got posted.</p>
+
+            <p><strong>Actual experiences.</strong> Instead of consuming other people's lives, you're living yours. Sounds cheesy but it's true.</p>
+
+            <div class="action-box">
+                <h3>The replacement strategy</h3>
+                <p>You need to figure out what scrolling is doing for you, then find something else that does it better.</p>
+                
+                <p><strong>If you scroll when you're bored:</strong> You need engaging activities that don't require much setup. Book on your nightstand. Sketchbook. Musical instrument. Something you can just pick up.</p>
+                
+                <p><strong>If you scroll when you're stressed:</strong> You need actual stress relief, not distraction. Going for a walk. Calling a friend. Exercise. Sitting with the feeling instead of running from it.</p>
+                
+                <p><strong>If you scroll when you're lonely:</strong> You need connection. Real connection, not the fake kind you get from feeds. Message someone specific, don't just broadcast into the void. Meet up in person. Join something.</p>
+                
+                <p><strong>If you scroll to avoid work:</strong> Break the work into smaller pieces. Use pomorodo or whatever. The scrolling is a symptom, the work being overwhelming is the problem.</p>
+            </div>
+
+            <h3>Practical alternatives</h3>
+            
+            <p>These are things people actually do instead of scrolling. Not aspirational instagram bullshit, actual things that work:</p>
+
+            <h4>Low effort replacements</h4>
+            <p>For when you just need something to do with your hands:</p>
+            <ul>
+                <li>Read something you've been meaning to read. Not productive reading, just something interesting. Keep a book or kindle somewhere you usually grab your phone.</li>
+                <li>Play an instrument badly. Guitar, keyboard, whatever. You don't have to be good, just engaging your brain differently.</li>
+                <li>Doodle or sketch. Doesn't matter if you're artistic.</li>
+                <li>Puzzle games that aren't infinite. Actual jigsaw puzzles, crosswords, sudoku. Things with an end point.</li>
+                <li>StreetComplete (https://streetcomplete.app) if you need something that feels like a game but is actually useful. It's like pokemon go but you're improving OpenStreetMap.</li>
+            </ul>
+
+            <h4>Medium effort things</h4>
+            <p>When you have more time and energy:</p>
+            <ul>
+                <li>Cook something properly. Not optimizing for time, actually cooking.</li>
+                <li>Go for a walk without your phone. Or with your phone but on airplane mode.</li>
+                <li>Work on something with your hands. Woodworking, knitting, fixing things around your place, whatever.</li>
+                <li>Learn something practical. Not career stuff, just something you've been curious about.</li>
+                <li>Meet up with someone in person. Radically old school, actually works.</li>
+            </ul>
+
+            <h4>High effort but worth it</h4>
+            <p>For when you're really committed:</p>
+            <ul>
+                <li>Start a project that takes weeks or months. Build something, write something, make something.</li>
+                <li>Get involved in something local. Community garden, sports club, volunteer thing, doesn't matter what.</li>
+                <li>Take a class in person. Learning online is fine but in person forces you to actually show up.</li>
+                <li>Travel somewhere without planning it to death on instagram first. Just go.</li>
+            </ul>
+
+            <h3>The boring truth</h3>
+            
+            <p>A lot of what you'll end up doing is... normal life things. Doing the dishes. Sitting and thinking. Staring out the window. Having conversations. Reading. Walking places.</p>
+
+            <p>It sounds boring compared to the constant stimulation of feeds. And it is, at first. Your brain is used to the dopamine hits. It takes a while to recalibrate to normal levels of interesting.</p>
+
+            <p>But that's kind of the point. Life isn't supposed to be as intense as your twitter feed. Once you adjust, normal life is actually pretty good. Better than good, because it's yours.</p>
+
+            <div class="warning-box">
+                <h3>What doesn't work as a replacement</h3>
+                <p>Just switching to a different infinite feed. Reading reddit instead of twitter. Watching youtube instead of tiktok. Playing mobile games with daily quests. Reading news constantly. Any other thing with no natural stopping point.</p>
+                
+                <p>The problem isn't the specific app. It's the infinite nature of it. You need things with endings.</p>
+            </div>
+
+            <h3>Building the habit</h3>
+            
+            <p>Put the replacement things where you usually reach for your phone. Book on the coffee table. Sketchbook on your desk. Guitar in the corner of your room, not in a case in the closet.</p>
+
+            <p>Lower the barrier to doing the good thing. Make it easier to pick up a book than to pick up your phone.</p>
+
+            <p>And yeah, at first it'll feel weird and forced. You'll pick up the book and immediately want to check your phone. That's normal. Do it anyway. It gets easier.</p>
+
+            <button class="button" onclick="showSection('resources')">Show me tools and apps</button>
+            <button class="back-button" onclick="showSection('action-plan')">Back to action plan</button>
+        </div>
+
+        <!-- Resources Section -->
+        <div id="resources" class="section hidden">
+            <h2>Tools and resources</h2>
+            
+            <p>These are apps and tools that actually help. Not every app will work for everyone, try what seems useful for your situation.</p>
+
+            <div class="resource-list">
+                <h3>For iPhone</h3>
+                <ul>
+                    <li><strong>One Sec</strong> (https://one-sec.app) - forces breathing exercise before opening apps. Annoying in the right way. Free.</li>
+                    <li><strong>ScreenZen</strong> (https://apps.apple.com/us/app/screenzen-screen-time-control/id1541027222) - wait timers, blocks, time limits. Currently free.</li>
+                    <li><strong>Blank</strong> (https://apps.apple.com/us/app/blank-spaces-launcher/id1570856853) - text-based home screen. Has free version.</li>
+                    <li><strong>Dumbify</strong> (https://apps.apple.com/us/app/dumbify/id6480082872) - minimalist launcher</li>
+                    <li><strong>Built-in Screen Time</strong> - actually use it. Set app limits, check your stats.</li>
+                    <li><strong>Color Filters (Accessibility)</strong> - grayscale mode. Makes everything less appealing.</li>
+                </ul>
+            </div>
+
+            <div class="resource-list">
+                <h3>For Android</h3>
+                <ul>
+                    <li><strong>Digital Wellbeing</strong> - built into Android. App timers, bedtime mode, focus mode. Use it.</li>
+                    <li><strong>NewPipe</strong> - youtube without recommendations. Get from F-Droid (https://f-droid.org)</li>
+                    <li><strong>ScreenZen</strong> - also available on Android</li>
+                    <li><strong>CC Launcher</strong> (https://github.com/mlm-games/cclauncher) - minimalist launcher designed to reduce screen time</li>
+                    <li><strong>StreetComplete</strong> (https://streetcomplete.app) - gamified map contribution, replacement for mindless scrolling</li>
+                </ul>
+            </div>
+
+            <div class="resource-list">
+                <h3>Browser extensions</h3>
+                <ul>
+                    <li><strong>Anti-Doomscroll Extension</strong> - blocks feeds on major sites, you can still search. (Check project files for the extension code)</li>
+                    <li><strong>uBlock Origin</strong> - blocks ads but also you can block specific page elements</li>
+                    <li><strong>LeechBlock</strong> - time-based site blocking</li>
+                </ul>
+            </div>
+
+            <div class="resource-list">
+                <h3>For power users</h3>
+                <ul>
+                    <li><strong>DNS-level blocking</strong> - block sites at router level. Pi-hole, AdGuard Home</li>
+                    <li><strong>Hosts file editing</strong> - manual but effective</li>
+                    <li><strong>GrapheneOS</strong> (https://grapheneos.org) - privacy-focused Android, fresh start</li>
+                </ul>
+            </div>
+
+            <div class="resource-list">
+                <h3>Alternatives to mainstream apps</h3>
+                <ul>
+                    <li><strong>Mastodon</strong> (https://joinmastodon.org) - no algorithms, no ads, actual communities</li>
+                    <li><strong>RSS readers</strong> - choose what you read, no algorithmic feed</li>
+                    <li><strong>Newsletter subscriptions</strong> - intentional content delivery</li>
+                </ul>
+            </div>
+
+            <h3>More resources</h3>
+            <p>Check out the full resource document at: <a href="https://leaflet.pub/42f4f292-1cdb-4632-835d-e5179c2faed9" target="_blank">Digital Minimalism Lab</a></p>
+
+            <button class="button" onclick="restartGuide()">Start over</button>
+            <button class="back-button" onclick="showSection('alternatives')">Back</button>
+        </div>
+    </div>
+
+    <script src="guide.js"></script>
+</body>
+</html>
