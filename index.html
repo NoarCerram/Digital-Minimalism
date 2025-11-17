@@ -150,6 +150,191 @@
             color: #555;
             margin: 20px 0;
         }
+
+        /* Social Media Search Interface Styles */
+        .search-interface {
+            margin: 30px 0;
+        }
+
+        .platform-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .platform-tab {
+            padding: 12px 20px;
+            background: #ecf0f1;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .platform-tab:hover {
+            background: #d5dbdb;
+        }
+
+        .platform-tab.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .search-box {
+            margin: 20px 0;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-button:hover {
+            background: #5568d3;
+        }
+
+        .search-results {
+            margin: 30px 0;
+        }
+
+        .result-item {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .result-item h4 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+
+        .result-item p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        .save-button {
+            padding: 8px 16px;
+            margin-top: 10px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s;
+        }
+
+        .save-button:hover {
+            background: #229954;
+        }
+
+        .save-button.saved {
+            background: #95a5a6;
+            cursor: default;
+        }
+
+        .saved-items {
+            margin: 30px 0;
+        }
+
+        .saved-item {
+            background: #fff3cd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .saved-item-content {
+            flex: 1;
+        }
+
+        .remove-button {
+            padding: 6px 12px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+            margin-left: 15px;
+        }
+
+        .remove-button:hover {
+            background: #c0392b;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+            border-radius: 4px;
+        }
+
+        .platform-description {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-size: 0.95em;
+            color: #555;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #95a5a6;
+            font-style: italic;
+        }
+
+        .search-link {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+
+        .search-link:hover {
+            background: #5568d3;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -162,6 +347,7 @@
             <p>This isn't another productivity hack or life optimization thing. this is about getting your attention back. about having time for things that actually matter to you.</p>
             <p>No judgement here. just practical steps based on what actually works.</p>
             <button class="button" onclick="showSection('stage')">Let's start</button>
+            <button class="button secondary" onclick="showSection('search-tool')">Clean Search Tool</button>
         </div>
 
         <!-- Stage Selection -->
@@ -469,6 +655,100 @@
 
             <button class="button" onclick="restartGuide()">Start over</button>
             <button class="back-button" onclick="showSection('alternatives')">Back</button>
+        </div>
+
+        <!-- Social Media Search Interface -->
+        <div id="search-tool" class="section hidden">
+            <h2>Clean Social Media Search</h2>
+
+            <div class="info-box">
+                <p><strong>The point of this tool:</strong> Search these platforms without getting sucked into infinite scrolls. Find what you need, save it for later, get out.</p>
+                <p>No feeds. No recommendations. No algorithmic rabbit holes. Just search.</p>
+            </div>
+
+            <div class="search-interface">
+                <h3>Select Platform</h3>
+                <div class="platform-tabs">
+                    <button class="platform-tab active" onclick="selectSearchPlatform('youtube')">YouTube</button>
+                    <button class="platform-tab" onclick="selectSearchPlatform('reddit')">Reddit</button>
+                    <button class="platform-tab" onclick="selectSearchPlatform('instagram')">Instagram</button>
+                    <button class="platform-tab" onclick="selectSearchPlatform('facebook')">Facebook</button>
+                    <button class="platform-tab" onclick="selectSearchPlatform('substack')">Substack</button>
+                </div>
+
+                <!-- YouTube Search -->
+                <div id="platform-youtube" class="platform-content">
+                    <div class="platform-description">
+                        <strong>YouTube:</strong> Search for specific videos. The link opens YouTube search results in a new tab. Use your browser extensions to block recommendations and autoplay.
+                    </div>
+                    <div class="search-box">
+                        <input type="text" id="youtube-search" class="search-input" placeholder="Search YouTube for...">
+                        <button class="search-button" onclick="searchPlatform('youtube')">Search YouTube</button>
+                    </div>
+                </div>
+
+                <!-- Reddit Search -->
+                <div id="platform-reddit" class="platform-content hidden">
+                    <div class="platform-description">
+                        <strong>Reddit:</strong> Search for posts or subreddits. Opens Reddit search without the home feed.
+                    </div>
+                    <div class="search-box">
+                        <input type="text" id="reddit-search" class="search-input" placeholder="Search Reddit for...">
+                        <button class="search-button" onclick="searchPlatform('reddit')">Search Reddit</button>
+                    </div>
+                </div>
+
+                <!-- Instagram Search -->
+                <div id="platform-instagram" class="platform-content hidden">
+                    <div class="platform-description">
+                        <strong>Instagram:</strong> Search for profiles or hashtags. Access specific content without the feed.
+                    </div>
+                    <div class="search-box">
+                        <input type="text" id="instagram-search" class="search-input" placeholder="Search Instagram for...">
+                        <button class="search-button" onclick="searchPlatform('instagram')">Search Instagram</button>
+                    </div>
+                </div>
+
+                <!-- Facebook Search -->
+                <div id="platform-facebook" class="platform-content hidden">
+                    <div class="platform-description">
+                        <strong>Facebook:</strong> Search for people, pages, or groups. Direct access without the news feed.
+                    </div>
+                    <div class="search-box">
+                        <input type="text" id="facebook-search" class="search-input" placeholder="Search Facebook for...">
+                        <button class="search-button" onclick="searchPlatform('facebook')">Search Facebook</button>
+                    </div>
+                </div>
+
+                <!-- Substack Search -->
+                <div id="platform-substack" class="platform-content hidden">
+                    <div class="platform-description">
+                        <strong>Substack:</strong> Search for newsletters and articles. Find specific content creators.
+                    </div>
+                    <div class="search-box">
+                        <input type="text" id="substack-search" class="search-input" placeholder="Search Substack for...">
+                        <button class="search-button" onclick="searchPlatform('substack')">Search Substack</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saved for Later Section -->
+            <div class="saved-items">
+                <h3>Saved for Later</h3>
+                <div id="saved-list">
+                    <div class="empty-state">No saved items yet. Search something and save it for later.</div>
+                </div>
+                <button class="button secondary" onclick="clearAllSaved()" style="margin-top: 20px;">Clear All Saved Items</button>
+            </div>
+
+            <div class="warning-box">
+                <h3>Important reminder</h3>
+                <p>This tool helps you search intentionally. But the platforms themselves are still designed to keep you scrolling. Use browser extensions to block feeds and recommendations.</p>
+                <p>If you find yourself falling into rabbit holes anyway, that's a sign you need stronger barriers. See the main guide for blocking tools and strategies.</p>
+            </div>
+
+            <button class="button" onclick="showSection('landing')">Back to Guide</button>
+            <button class="button secondary" onclick="showSection('resources')">See Blocking Tools</button>
         </div>
     </div>
 

@@ -733,7 +733,7 @@ function getComputerPlan(os, problem, stage) {
         // Generic fallback for any other problems
         plan += `
             <p>Here's a general approach for ${problem} on ${os}.</p>
-            
+
             <div class="action-box">
                 <h3>Start with these</h3>
                 <p><strong>Install website blockers.</strong> Block distracting sites during times you need to focus.</p>
@@ -742,6 +742,234 @@ function getComputerPlan(os, problem, stage) {
             </div>
         `;
     }
-    
+
     return plan;
 }
+
+// ===== Social Media Search Interface Functions =====
+
+let currentSearchPlatform = 'youtube';
+let savedItems = [];
+
+// Load saved items from localStorage on page load
+document.addEventListener('DOMContentLoaded', function() {
+    loadSavedItems();
+    displaySavedItems();
+});
+
+// Select search platform (tabs)
+function selectSearchPlatform(platform) {
+    currentSearchPlatform = platform;
+
+    // Update tab styling
+    document.querySelectorAll('.platform-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    // Show/hide platform content
+    document.querySelectorAll('.platform-content').forEach(content => {
+        content.classList.add('hidden');
+    });
+    document.getElementById('platform-' + platform).classList.remove('hidden');
+}
+
+// Search on selected platform
+function searchPlatform(platform) {
+    const searchInput = document.getElementById(platform + '-search');
+    const query = searchInput.value.trim();
+
+    if (!query) {
+        alert('Please enter a search term');
+        return;
+    }
+
+    // Encode the search query for URLs
+    const encodedQuery = encodeURIComponent(query);
+    let searchUrl = '';
+
+    switch(platform) {
+        case 'youtube':
+            searchUrl = `https://www.youtube.com/results?search_query=${encodedQuery}`;
+            break;
+        case 'reddit':
+            searchUrl = `https://www.reddit.com/search/?q=${encodedQuery}`;
+            break;
+        case 'instagram':
+            // Instagram search works differently - goes to explore/tags or direct to username
+            if (query.startsWith('#')) {
+                searchUrl = `https://www.instagram.com/explore/tags/${encodedQuery.substring(3)}/`;
+            } else if (query.startsWith('@')) {
+                searchUrl = `https://www.instagram.com/${encodedQuery.substring(3)}/`;
+            } else {
+                searchUrl = `https://www.instagram.com/explore/search/keyword/?q=${encodedQuery}`;
+            }
+            break;
+        case 'facebook':
+            searchUrl = `https://www.facebook.com/search/top?q=${encodedQuery}`;
+            break;
+        case 'substack':
+            searchUrl = `https://substack.com/search/${encodedQuery}`;
+            break;
+    }
+
+    // Save the search to saved items
+    const searchItem = {
+        id: Date.now(),
+        platform: platform,
+        query: query,
+        url: searchUrl,
+        timestamp: new Date().toLocaleString()
+    };
+
+    // Open search in new tab
+    window.open(searchUrl, '_blank');
+
+    // Optionally save this search automatically
+    // addToSaved(searchItem);
+
+    // Show option to save
+    showSaveOption(searchItem);
+}
+
+// Show option to save a search
+function showSaveOption(searchItem) {
+    // Create a temporary notification
+    const notification = document.createElement('div');
+    notification.className = 'action-box';
+    notification.style.position = 'fixed';
+    notification.style.top = '20px';
+    notification.style.right = '20px';
+    notification.style.zIndex = '1000';
+    notification.style.maxWidth = '400px';
+    notification.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+    notification.innerHTML = `
+        <p><strong>Search opened in new tab</strong></p>
+        <p>Save "${searchItem.query}" on ${searchItem.platform} for later?</p>
+        <button class="save-button" onclick="saveFromNotification(${searchItem.id})">Save for Later</button>
+        <button class="button secondary" onclick="closeNotification()" style="margin-left: 10px; padding: 8px 16px; font-size: 0.9em;">Close</button>
+    `;
+
+    // Store the search item temporarily
+    window.tempSearchItem = searchItem;
+
+    document.body.appendChild(notification);
+
+    // Auto-close after 10 seconds
+    setTimeout(() => {
+        if (document.body.contains(notification)) {
+            notification.remove();
+        }
+    }, 10000);
+}
+
+// Save from notification
+function saveFromNotification(id) {
+    if (window.tempSearchItem) {
+        addToSaved(window.tempSearchItem);
+        closeNotification();
+    }
+}
+
+// Close notification
+function closeNotification() {
+    const notifications = document.querySelectorAll('.action-box[style*="position: fixed"]');
+    notifications.forEach(n => n.remove());
+}
+
+// Add item to saved list
+function addToSaved(item) {
+    // Check if already saved
+    const exists = savedItems.some(saved =>
+        saved.platform === item.platform && saved.query === item.query
+    );
+
+    if (exists) {
+        alert('This search is already saved!');
+        return;
+    }
+
+    savedItems.push(item);
+    saveSavedItems();
+    displaySavedItems();
+}
+
+// Display saved items
+function displaySavedItems() {
+    const savedList = document.getElementById('saved-list');
+
+    if (savedItems.length === 0) {
+        savedList.innerHTML = '<div class="empty-state">No saved items yet. Search something and save it for later.</div>';
+        return;
+    }
+
+    let html = '';
+    savedItems.forEach(item => {
+        html += `
+            <div class="saved-item">
+                <div class="saved-item-content">
+                    <h4>${item.platform.charAt(0).toUpperCase() + item.platform.slice(1)}: ${item.query}</h4>
+                    <p>Saved on: ${item.timestamp}</p>
+                    <a href="${item.url}" target="_blank" class="search-link">Open Search</a>
+                </div>
+                <button class="remove-button" onclick="removeFromSaved(${item.id})">Remove</button>
+            </div>
+        `;
+    });
+
+    savedList.innerHTML = html;
+}
+
+// Remove item from saved list
+function removeFromSaved(id) {
+    savedItems = savedItems.filter(item => item.id !== id);
+    saveSavedItems();
+    displaySavedItems();
+}
+
+// Clear all saved items
+function clearAllSaved() {
+    if (savedItems.length === 0) {
+        alert('No saved items to clear!');
+        return;
+    }
+
+    if (confirm('Are you sure you want to clear all saved items? This cannot be undone.')) {
+        savedItems = [];
+        saveSavedItems();
+        displaySavedItems();
+    }
+}
+
+// Save to localStorage
+function saveSavedItems() {
+    localStorage.setItem('digitalMinimalismSavedSearches', JSON.stringify(savedItems));
+}
+
+// Load from localStorage
+function loadSavedItems() {
+    const stored = localStorage.getItem('digitalMinimalismSavedSearches');
+    if (stored) {
+        try {
+            savedItems = JSON.parse(stored);
+        } catch (e) {
+            console.error('Error loading saved items:', e);
+            savedItems = [];
+        }
+    }
+}
+
+// Add keyboard support for search (Enter key)
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInputs = ['youtube', 'reddit', 'instagram', 'facebook', 'substack'];
+    searchInputs.forEach(platform => {
+        const input = document.getElementById(platform + '-search');
+        if (input) {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchPlatform(platform);
+                }
+            });
+        }
+    });
+});
